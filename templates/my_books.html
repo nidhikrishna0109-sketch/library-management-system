@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Issued Books</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for issue in issues %}
+        <tr>
+            <td>{{ issue.book.title }}</td>
+            <td>{{ issue.issue_date.strftime('%d-%m-%Y') }}</td>
+            <td>{{ issue.return_date.strftime('%d-%m-%Y') }}</td>
+            <td>
+                <a href="/return_book/{{ issue.id }}" class="btn btn-warning btn-sm">Return</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" class="text-center">No books issued!</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/books" class="btn btn-primary">Issue More Books</a>
+{% endblock %}
